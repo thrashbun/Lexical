@@ -62,3 +62,5 @@ def get_scored_words_dict(challenge):
     scores_map={token.text:challenge.similarity(token) for token in test_tokens}
     sorted_words = sorted(scores_map.items(), key=lambda kv: kv[1],reverse=True)
     return [{"word":scored_word[0],"score":scored_word[1]} for scored_word in sorted_words]
+
+

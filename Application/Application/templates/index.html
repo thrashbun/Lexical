@@ -9,20 +9,29 @@
 <script type="text/javascript" charset="utf-8">
     var socket = io();
     socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
+        socket.send({data: 'I\'m connected!'});
     });
+    socket.on('my response', function(msg) {
+        console.log(msg);
+        document.getElementById("resultsTable").innerHTML = msg;
+    });
+    function send_message(){
+        console.log('Hello world!');
+        socket.emit('my event',{data: document.getElementById("query").value});
+    }
 </script>
    </head>
    <body class="ml-3">
        <h1>What are you thinking of?</h1>
        <br />
        <form action='' method='POST'>
-          <input type='text' name='word1' value="{{query}}" style='width: 210px'>
-          <input type='submit'>
+          <input type='text' name='word1' value="{{query}}" style='width: 210px' id='query'>
+          <!--<input type='submit'> -->
        </form>
+       <button type="button" onclick="send_message()">Click Me!</button>
        <br />
        <h1>Do you mean?</h1>
-       <table class='table table-striped table-hover ml-0' style='width: 210px'>
+       <table class='table table-striped table-hover ml-0' style='width: 210px' id='resultsTable'>
        {{scored_words | safe}}
        </table>
    </body>

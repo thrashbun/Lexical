@@ -10,7 +10,6 @@ from Application import app as flaskapp
 from flask import request as flaskrequest
 from flask import jsonify
 
-
 nlp = spacy.load('/home/jcolbert/anaconda3/envs/lexical/lib/python3.6/site-packages/en_vectors_web_lg/en_vectors_web_lg-2.0.0')
 for word in STOP_WORDS:
     for w in (word, word[0].capitalize(), word.upper()):
@@ -47,6 +46,13 @@ def construct_table(scored_words):
     for scored_word in scored_words:
         res+='<tr><td>{word}</td><td class="text-right">{score:0.2f}</td></tr>'.format(word=scored_word[0],score=scored_word[1])
     return res
+
+def get_table_from_query(query):
+    query = nlp(query.lower())
+    query=nlp(''.join([token.string for token in query if not token.is_stop]))
+    scored_words = get_scored_words(query)[:10]
+    table= construct_table(scored_words)
+    return table
 
 @flaskapp.route('/api',methods=['GET'])  
 def api():

@@ -25,14 +25,22 @@
        <h1>What are you thinking of?</h1>
        <br />
        <form action='' method='POST'>
-          <input type='text' name='word1' value="{{query}}" style='width: 210px' id='query'>
+          <input type='text' name='word1' value="{{query}}" style='width: 210px' id='query' autocomplete="off">
           <!--<input type='submit'> -->
        </form>
-       <button type="button" onclick="send_message()">Click Me!</button>
+       <!--<button type="button" onclick="send_message()">Click Me!</button>-->
        <br />
        <h1>Do you mean?</h1>
        <table class='table table-striped table-hover ml-0' style='width: 210px' id='resultsTable'>
        {{scored_words | safe}}
        </table>
+       <script type="text/javascript" charset="utf-8">
+            document.getElementById("query").addEventListener('keydown', function(event) {
+            var keyCode = event.keyCode;
+            if (keyCode == 32 || keyCode == 13) {
+                send_message();
+            }
+            });
+        </script>
    </body>
 </html>

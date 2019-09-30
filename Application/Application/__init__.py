@@ -4,6 +4,8 @@ from Application import views
 from flask_socketio import SocketIO
 from flask_socketio import send, emit
 
+from Application import model
+
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
@@ -20,6 +22,6 @@ def handle_json(json):
 @socketio.on('my event')
 def handle_message(message):
     print('received message: ' + str(message))
-    emit('my response', views.get_table_from_query(message['data']))
+    emit('my response', model.get_table_from_query(message['data']))
     
-socketio.run(app)
+#socketio.run(app)

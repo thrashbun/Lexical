@@ -29,4 +29,6 @@ def api():
     query = flaskrequest.args.get("query").lower()
     scored_words = model.get_scored_words_dict(query)[:10]
     flaskapp.logger.info(query)
-    return jsonify(scored_words)
+    response=jsonify(scored_words)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response

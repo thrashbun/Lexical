@@ -2,7 +2,8 @@
 <html lang="en">
    <head>
        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
        <title>Lexical</title>
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
@@ -22,7 +23,7 @@
 </script>
    </head>
    <body class="ml-3">
-       <h1>What are you thinking of?</h1>
+       <h1>Describe what you are you thinking of:</h1>
        <br />
           <input type='text' name='word1' value="{{query}}" style='width: 210px' id='query' autocomplete="off">
           <!--<input type='submit'> -->

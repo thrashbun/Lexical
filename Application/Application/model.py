@@ -28,8 +28,8 @@ def get_scored_words(challenge):
 
 def construct_table(scored_words):
     res=''
-    for scored_word in scored_words:
-        res+='<tr><td>{word}</td><td class="text-right">{score:0.2f}</td></tr>'.format(word=scored_word[0],score=scored_word[1])
+    for i, scored_word in enumerate(scored_words):
+        res+='<tr><td>{i}</td><td>{word}</td><td class="text-right">{score:0.2f}</td></tr>'.format(i=i+1,word=scored_word[0],score=scored_word[1])
     return res
 
 def get_table_from_query(query):

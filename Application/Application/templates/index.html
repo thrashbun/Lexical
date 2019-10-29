@@ -6,7 +6,9 @@
        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
        <title>Lexical</title>
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
 <script type="text/javascript" charset="utf-8">
     var socket = io();
     socket.on('connect', function() {
@@ -14,7 +16,7 @@
     });
     socket.on('my response', function(msg) {
         console.log(msg);
-        document.getElementById("resultsTable").innerHTML = msg;
+        document.getElementById("resultsBody").innerHTML = msg;
     });
     function send_message(){
         console.log('Hello world!');
@@ -26,15 +28,22 @@
        <h1>Describe what you are you thinking of:</h1>
        <br />
           <input type='text' name='word1' value="{{query}}" style='width: 210px' id='query' autocomplete="off">
-          <!--<input type='submit'> -->
-       <!--<button type="button" onclick="send_message()">Click Me!</button>-->
        <br />
        <h1>Do you mean?</h1>
        <table class='table table-striped table-hover ml-0' style='width: 210px' id='resultsTable'>
-       {{scored_words | safe}}
+	 <thead>
+	   <tr>
+	     <th scope='col'>Rank</th>
+	     <th scope='col'>Suggestion</th>
+	     <th scope='col'>Score</th>
+	   </tr>
+	 </thead>
+	 <tbody id='resultsBody'>
+	   {{scored_words | safe}}
+	 </tbody>
        </table>
        <script type="text/javascript" charset="utf-8">
-            document.getElementById("query").addEventListener('keydown', function(event) {
+            document.getElementById("query").addEventListener('keypress', function(event) {
             var keyCode = event.keyCode;
             if (keyCode == 32 || keyCode == 13) {
                 send_message();

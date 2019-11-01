@@ -32,3 +32,7 @@ def api():
     response=jsonify(scored_words)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+@flaskapp.route('/about',methods=['GET'])  
+def about():
+    return render_template("about.html")

@@ -22,6 +22,6 @@ def handle_json(json):
 @socketio.on('my event')
 def handle_message(message):
     print('received message: ' + str(message))
-    emit('my response', model.get_table_from_query(message['data']))
+    emit('my json', model.get_scored_words_dict(message['query'])[:10])
     
 #socketio.run(app)

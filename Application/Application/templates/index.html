@@ -9,23 +9,41 @@
 
        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
 
-<script type="text/javascript" charset="utf-8">
-    var socket = io();
-    socket.on('connect', function() {
-        socket.send({data: 'I\'m connected!'});
-    });
-    socket.on('my response', function(msg) {
-        console.log(msg);
-        document.getElementById("resultsBody").innerHTML = msg;
-    });
-    function send_message(){
-        console.log('Hello world!');
-        socket.emit('my event',{data: document.getElementById("query").value});
-    }
-</script>
+       <script src="{{ url_for('static', filename='js/index.js') }}">
+       </script>
+       <style media="screen and (max-width:760px)">
+	 .desktop-only {
+	     display: none;
+	 }
+
+	 .results-table {
+	     font-size: 21px;
+	     width: 190px;
+	 }
+       </style>
+       <style media="screen and (min-width:761px)">
+	 .mobile-only {
+	     display: none;
+	 }
+
+	 .results-table {
+	     font-size: 24px;
+	     width: 210px;
+	 }
+       </style>
+       <style media="screen and (max-width:419px)">
+	 .query {
+	     width: 95%;
+	 }
+       </style>
+       <style media="screen and (min-width:420px)">
+	 .query {
+	     width: 400px;
+	 }
+       </style>
    </head>
-   <body class="ml-3">
-     <nav class="navbar navbar-expand-lg navbar-dark py-0" style="background-color:#004455; margin-left: -20px">
+   <body class="">
+     <nav class="navbar navbar-expand-lg navbar-dark py-0" style="background-color:#004455;">
        <a class="navbar-brand" href="."><img src="{{ url_for('static', filename='icon32.png') }}"></a>
        <div class="collapse navbar-collapse" id="navbarNav">
 	 <ul class="navbar-nav">
@@ -44,29 +62,47 @@
      <div  align='center'>
      <h1>Describe what you are you thinking of:</h1>
        <br />
-          <input type='text' name='word1' value="{{query}}" style='width: 210px' id='query' autocomplete="off">
+          <input type='text' name='word1' value="{{query}}" class='query' id='query' autocomplete="off">
        <br />
-       <h1>Do you mean?</h1>
-       <table class='table table-striped table-hover ml-0' style='width: 210px' id='resultsTable'>
-	 <thead>
-	   <tr>
-	     <th scope='col'>Rank</th>
-	     <th scope='col'>Suggestion</th>
-	     <th scope='col'>Score</th>
-	   </tr>
-	 </thead>
-	 <tbody id='resultsBody'>
-	   {{scored_words | safe}}
-	 </tbody>
-       </table>
+       <h1>Do you mean ___?</h1>
+       <div class="container" id="content">
+	 <div class="row" style="width: fit-content; font-size:30px">
+	   <div class="col">
+	     <table class="table table-striped table-hover ml-0 results-table" id="resultsTable">
+	       <thead>
+		 <tr>
+		   <th scope="col">Rank</th>
+		   <th scope="col">Suggestion</th>
+		   <th scope="col">Score</th>
+		 </tr>
+	       </thead>
+	       <tbody id="resultsBody0">
+	       </tbody>
+	     </table>
+	   </div>
+	   <div class="col desktop-only">
+	     <table class="table table-striped table-hover ml-0 results-table" id="resultsTable">
+	       <thead>
+		 <tr>
+		   <th scope="col">Rank</th>
+		   <th scope="col">Suggestion</th>
+		   <th scope="col">Score</th>
+		 </tr>
+	       </thead>
+	       <tbody id="resultsBody1">
+	       </tbody>
+	     </table>
+	   </div>
+	 </div>
        </div>
-       <script type="text/javascript" charset="utf-8">
-            document.getElementById("query").addEventListener('keyup', function(event) {
-            var keyCode = event.keyCode;
-            
-                send_message();
- 
-            });
-        </script>
+     </div>
+     <script type="text/javascript" charset="utf-8">
+       document.getElementById("query").addEventListener('keyup', function(event) {
+       var keyCode = event.keyCode;
+
+       sendMessage();
+
+       });
+     </script>
    </body>
 </html>
